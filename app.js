@@ -36,8 +36,14 @@ app.get("/text",function(req,res){
 		ctx2.drawImage(canvas,0,0,200,200);
 		*/
 
-	 	var stream = canvas.createJPEGStream({
-				  bufsize : 204800,
+		canvas.toBuffer(function(err,buf){
+			res.writeHead(200, {"Cache-Control":"max-age=86400",'Content-Type': 'image/png' });
+			res.end(buf, 'binary');
+		});
+return;
+//		var stream = canvas.createJPEGStream({
+		var stream = canvas.createPNGStream({
+				  bufsize : 2048000,
 				  quality :100
 			});
 		var length=0;
@@ -56,7 +62,7 @@ app.get("/text",function(req,res){
 					chunkAry[i].copy(buf,chunkAry[i-1].length);
 				}
 			}
-		res.writeHead(200, {"Cache-Control":"max-age=86400",'Content-Type': 'image/jpg' });
+		res.writeHead(200, {"Cache-Control":"max-age=86400",'Content-Type': 'image/png' });
 		res.end(buf, 'binary');
 		//	callback(null,buf);
 		});
