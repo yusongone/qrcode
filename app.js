@@ -21,10 +21,11 @@ app.get("/text",function(req,res){
 	QR.draw(string,{"errorCorrectLevel":"high"},function(err,canvas,Canvas){
 		var mid_w=canvas.width/2,
 		mid_h=canvas.height/2;
-		var smallFill=mid_w*0.2;
+		//var smallFill=mid_w*0.2;
+		var smallFill=20;
 		var ctx=canvas.getContext("2d");
 		var img=new Canvas.Image;
-		var buf=fs.readFileSync("./image/logo.jpg");
+		var buf=fs.readFileSync("./image/logo.png");
 		img.src=buf;
 		ctx.drawImage(img,parseInt(mid_w-smallFill),parseInt(mid_h-smallFill),parseInt(smallFill*2),parseInt(smallFill*2));
 
